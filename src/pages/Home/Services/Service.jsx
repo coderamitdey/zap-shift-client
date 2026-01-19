@@ -3,7 +3,7 @@ import serviceImg from "../../../assets/service.png";
 
 const Service = () => {
   return (
-    <div className="bg-secondary rounded-2xl p-5 mb-3">
+    <div className="bg-secondary rounded-2xl my-8 p-5 mb-3">
       <div>
         <h1 className="font-bold text-3xl text-white text-center">
           Our Services

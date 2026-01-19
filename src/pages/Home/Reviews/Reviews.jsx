@@ -13,7 +13,7 @@ const Reviews = ({ reviewsPromise }) => {
   console.log(reviews);
 
   return (
-    <div className="mt-3">
+    <div className="my-8">
       <div>
         <h3 className="font-bold text-3xl text-center">Customer Reviews</h3>
         <p className="text-gray-500 text-center mb-3">
@@ -22,6 +22,7 @@ const Reviews = ({ reviewsPromise }) => {
         </p>
       </div>
       <Swiper
+        loop={true}
         effect={"coverflow"}
         grabCursor={true}
         centeredSlides={true}
@@ -31,10 +32,11 @@ const Reviews = ({ reviewsPromise }) => {
           disableOnInteraction: false,
         }}
         coverflowEffect={{
-          rotate: 50,
-          stretch: 0,
-          depth: 100,
+          rotate: 30,
+          stretch: "50%",
+          depth: 200,
           modifier: 1,
+          scale: 0.75,
           slideShadows: true,
         }}
         pagination={true}

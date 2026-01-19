@@ -9,9 +9,9 @@ const ReviewCard = ({ review }) => {
 
       {/* Review text */}
       <p className="text-base text-gray-600 mt-8">
-        A posture corrector works by providing support and gentle alignment to
-        your shoulders, back, and spine, encouraging you to maintain proper
-        posture throughout the day.
+        {
+          
+        }
       </p>
 
       {/* Divider */}
