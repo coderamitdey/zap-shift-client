@@ -10,7 +10,7 @@ const ReviewCard = ({ review }) => {
       {/* Review text */}
       <p className="text-base text-gray-600 mt-8">
         {
-          
+         review.review 
         }
       </p>
 
@@ -29,6 +29,7 @@ const ReviewCard = ({ review }) => {
           <p className="text-sm text-gray-500">Senior Product Designer</p>
         </div>
       </div>
+
     </div>
   );
 };

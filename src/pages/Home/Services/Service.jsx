@@ -16,7 +16,7 @@ const Service = () => {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 p-5">
-        <div className="card card-border shadow-md bg-base-200 p-3">
+        <div className="card card-border shadow-md bg-base-200 p-3 hover:bg-amber-100 transition-all duration-300 ease-out hover:shadow-xl hover:scale-[1.02]">
           <div className="bg-pink-100 h-15 w-15 rounded-full mx-auto">
             <img className="h-10 w-10 mx-auto pt-2" src={serviceImg} alt="" />
           </div>
@@ -29,7 +29,7 @@ const Service = () => {
             hours from pick-up to drop-off.
           </p>
         </div>
-        <div className=" card card-border shadow-md bg-primary p-3">
+        <div className="card card-border shadow-md bg-primary p-3 hover:bg-amber-100 transition-all duration-300 ease-out hover:shadow-xl hover:scale-[1.02]">
           <div className="bg-pink-100 h-15 w-15 rounded-full mx-auto">
             <img className="h-10 w-10 mx-auto pt-2" src={serviceImg} alt="" />
           </div>
@@ -42,7 +42,7 @@ const Service = () => {
             ensuring your products reach customers within 48–72 hours.
           </p>
         </div>
-        <div className=" card card-border shadow-md bg-base-200 p-3">
+        <div className="card card-border shadow-md bg-base-200 p-3 hover:bg-amber-100 transition-all duration-300 ease-out hover:shadow-xl hover:scale-[1.02]">
           <div className="bg-pink-100 h-15 w-15 rounded-full mx-auto">
             <img className="h-10 w-10 mx-auto pt-2" src={serviceImg} alt="" />
           </div>
@@ -55,7 +55,7 @@ const Service = () => {
           </p>
         </div>
 
-        <div className=" card card-border shadow-md bg-base-200 p-3">
+        <div className="card card-border shadow-md bg-base-200 p-3 hover:bg-amber-100 transition-all duration-300 ease-out hover:shadow-xl hover:scale-[1.02]">
           <div className="bg-pink-100 h-15 w-15 rounded-full mx-auto">
             <img className="h-10 w-10 mx-auto pt-2" src={serviceImg} alt="" />
           </div>
@@ -67,7 +67,7 @@ const Service = () => {
             of your product.
           </p>
         </div>
-        <div className=" card card-body bg-base-200 shadow-md p-3">
+        <div className="card card-border shadow-md bg-base-200 p-3 hover:bg-amber-100 transition-all duration-300 ease-out hover:shadow-xl hover:scale-[1.02]">
           <div className="bg-pink-100 h-15 w-15 rounded-full mx-auto">
             <img className="h-10 w-10 mx-auto pt-2" src={serviceImg} alt="" />
           </div>
@@ -79,7 +79,7 @@ const Service = () => {
             management support.
           </p>
         </div>
-        <div className=" card card-border shadow-md bg-base-200 p-3">
+        <div className="card card-border shadow-md bg-base-200 p-3 hover:bg-amber-100 transition-all duration-300 ease-out hover:shadow-xl hover:scale-[1.02]">
           <div className="bg-pink-100 h-15 w-15 rounded-full mx-auto">
             <img className="h-10 w-10 mx-auto pt-2" src={serviceImg} alt="" />
           </div>

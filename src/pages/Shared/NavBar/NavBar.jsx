@@ -1,29 +1,45 @@
 import React from "react";
 import Logo from "../../../components/Logo/Logo";
-import { NavLink } from "react-router";
+import { Link, NavLink } from "react-router";
+import useAuth from "../../../hooks/useAuth";
 
 const NavBar = () => {
+  const { user, logOut } = useAuth();
+
+  const handleLogOut = () => {
+    logOut()
+      .then()
+      .catch((error) => {
+        console.log(error);
+      });
+  };
   const links = (
     <>
       <ul className="text-gray-500 lg:flex">
         <li>
-        <NavLink to="">Services</NavLink>
-      </li>
-      <li>
-        <NavLink to="/coverage">Coverage</NavLink>
-      </li>
-      <li>
-        <NavLink to="/about">About Us</NavLink>
-      </li>
-      <li>
-        <NavLink to="">Pricing</NavLink>
-      </li>
-      <li>
-        <NavLink to="">Blog</NavLink>
-      </li>
-      <li>
-        <NavLink to="">Contact</NavLink>
-      </li>
+          <NavLink to="/">Home</NavLink>
+        </li>
+        <li>
+          <NavLink to="">Services</NavLink>
+        </li>
+        <li>
+          <NavLink to="/send-parcel">Send Parcel</NavLink>
+        </li>
+        <li>
+          <NavLink to="/coverage">Coverage</NavLink>
+        </li>
+        <li>
+          <NavLink to="/about">About Us</NavLink>
+        </li>
+        <li>
+          <NavLink to="">Pricing</NavLink>
+        </li>
+        <li>
+          <NavLink to="">Blog</NavLink>
+        </li>
+        <li>
+          <NavLink to="">Contact</NavLink>
+        </li>
       </ul>
     </>
   );
@@ -61,7 +77,19 @@ const NavBar = () => {
         <ul className="menu menu-horizontal px-1">{links}</ul>
       </div>
       <div className="navbar-end">
-        <a className="btn">Button</a>
+        {user ? (
+          <a onClick={handleLogOut} className="btn btn-active">
+            Log Out
+          </a>
+        ) : (
+          <Link className="btn btn-secondary" to="/login">
+            Login
+          </Link>
+        )}
+
+        <Link to="/rider" className="btn btn-primary text-black mx-2">
+          Be a Rider
+        </Link>
       </div>
     </div>
   );

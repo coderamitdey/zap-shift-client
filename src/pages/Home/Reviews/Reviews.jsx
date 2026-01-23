@@ -7,6 +7,7 @@ import {
 } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import ReviewCard from "./ReviewCard";
+import customerReviewsImg from '../../../assets/customer-top.png'
 
 const Reviews = ({ reviewsPromise }) => {
   const reviews = use(reviewsPromise);
@@ -14,11 +15,17 @@ const Reviews = ({ reviewsPromise }) => {
 
   return (
     <div className="my-8">
+      <div className="w-full flex justify-center">
+        <img src={customerReviewsImg} alt="" />
+      </div>
       <div>
-        <h3 className="font-bold text-3xl text-center">Customer Reviews</h3>
+        <h3 className="font-bold text-3xl text-center">
+          What our customers are sayings
+        </h3>
         <p className="text-gray-500 text-center mb-3">
-          Fast, reliable delivery at your doorstep. Track your order in real
-          time and enjoy hassle-free service every time you order with us.
+          Enhance posture, mobility, and well-being effortlessly with Posture
+          Pro. Achieve proper alignment, reduce pain, and strengthen your body
+          with ease!
         </p>
       </div>
       <Swiper
