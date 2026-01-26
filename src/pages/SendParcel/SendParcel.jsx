@@ -2,14 +2,20 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { useLoaderData } from "react-router";
 import Swal from "sweetalert2";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
+import useAuth from "../../hooks/useAuth";
 
 const SendParcel = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    // formState: { errors },
     watch,
   } = useForm();
+
+  const { user } = useAuth();
+
+  const axiosSecure = useAxiosSecure();
 
   const serviceCenters = useLoaderData();
   const regionsDuplicate = serviceCenters.map((c) => c.region);
@@ -51,6 +57,7 @@ const SendParcel = () => {
     }
 
     console.log("Total Cost:", cost);
+    data.cost = cost;
 
     // confirmation AFTER cost
     Swal.fire({
@@ -62,8 +69,12 @@ const SendParcel = () => {
       cancelButtonText: "Cancel",
     }).then((result) => {
       if (result.isConfirmed) {
-        // console.log("Parcel sent!", data, cost);
+        // save the parcel info to the database
+        axiosSecure.post("/parcels", data).then((res) => {
+          console.log("after saving parcel", res.data);
+        });
 
+        // console.log("Parcel sent!", data, cost);
         // Swal.fire(
         //   "Success!",
         //   `Parcel sent successfully. Cost: ৳${cost}`,
@@ -118,7 +129,7 @@ const SendParcel = () => {
 
           <fieldset className="fieldset">
             <label className="label text-black font-semibold">
-              Parcel Weight
+              Parcel Weight (Kg)
             </label>
             <input
               type="number"
@@ -141,6 +152,7 @@ const SendParcel = () => {
               </label>
               <input
                 required={true}
+                defaultValue={user?.displayName}
                 type="text"
                 {...register("senderName")}
                 className="input w-full"
@@ -155,6 +167,7 @@ const SendParcel = () => {
               </label>
               <input
                 type="email"
+                defaultValue={user?.email}
                 {...register("senderEmail")}
                 required={true}
                 className="input w-full"
