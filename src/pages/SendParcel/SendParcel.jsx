@@ -1,6 +1,6 @@
 import React from "react";
 import { useForm } from "react-hook-form";
-import { useLoaderData } from "react-router";
+import { useLoaderData, useNavigate } from "react-router";
 import Swal from "sweetalert2";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import useAuth from "../../hooks/useAuth";
@@ -14,8 +14,8 @@ const SendParcel = () => {
   } = useForm();
 
   const { user } = useAuth();
-
   const axiosSecure = useAxiosSecure();
+  const navigate = useNavigate();
 
   const serviceCenters = useLoaderData();
   const regionsDuplicate = serviceCenters.map((c) => c.region);
@@ -65,21 +65,25 @@ const SendParcel = () => {
       html: `<p>Total Cost: <b>৳${cost}</b></p>`,
       icon: "question",
       showCancelButton: true,
-      confirmButtonText: "Confirm & Send",
+      confirmButtonText: "Confirm & Continue Payment",
       cancelButtonText: "Cancel",
     }).then((result) => {
       if (result.isConfirmed) {
         // save the parcel info to the database
         axiosSecure.post("/parcels", data).then((res) => {
           console.log("after saving parcel", res.data);
-        });
 
-        // console.log("Parcel sent!", data, cost);
-        // Swal.fire(
-        //   "Success!",
-        //   `Parcel sent successfully. Cost: ৳${cost}`,
-        //   "success",
-        // );
+          if (res.data.insertedId) {
+            navigate("/dashboard/my-parcels");
+            Swal.fire({
+              position: "top-end",
+              icon: "success",
+              title: "Parcel has created. Please Pay",
+              showConfirmButton: false,
+              timer: 2500,
+            });
+          }
+        });
       }
     });
   };

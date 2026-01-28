@@ -6,7 +6,6 @@ import { FaEdit } from "react-icons/fa";
 import { FaMagnifyingGlass } from "react-icons/fa6";
 import { MdDelete } from "react-icons/md";
 import Swal from "sweetalert2";
-import { Link } from "react-router";
 
 const MyParcels = () => {
   //  tanstack query
@@ -21,6 +20,21 @@ const MyParcels = () => {
       return res.data;
     },
   });
+
+  const handlePayment = async (parcel) => {
+    const paymentInfo = {
+      cost: parcel.cost,
+      parcelId: parcel._id,
+      senderEmail: parcel.senderEmail,
+      parcelName: parcel.parcelName,
+    };
+    const res = await axiosSecure.post(
+      "/payment-checkout-session",
+      paymentInfo,
+    );
+    console.log(res.data);
+    window.location.assign(res.data.url);
+  };
 
   const handleParcelDelete = (id) => {
     console.log(id);
@@ -77,13 +91,15 @@ const MyParcels = () => {
                 <td>{parcel.cost} TK</td>
                 <td>
                   {parcel.paymentStatus == "paid" ? (
-                    <span className="text-green-600">Paid</span>
+                    <span className="text-green-600 font-semibold">Paid</span>
                   ) : (
-                    <Link to={`/dashboard/payment/${parcel._id}`}>
-                      <button className="btn btn-sm btn-primary text-black">
-                        Pay
-                      </button>
-                    </Link>
+                    // ekhane change hoise,aghe link chilo
+                    <button
+                      onClick={() => handlePayment(parcel)}
+                      className="btn btn-sm btn-primary text-black"
+                    >
+                      Pay
+                    </button>
                   )}
                 </td>
                 <td>NAN</td>
