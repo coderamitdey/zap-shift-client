@@ -4,6 +4,8 @@ import useAuth from "../../../hooks/useAuth";
 import { Link, useLocation, useNavigate } from "react-router";
 import SocialLogin from "../SocialLogin/SocialLogin";
 import axios from "axios";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import Swal from "sweetalert2";
 
 const Register = () => {
   const {
@@ -12,47 +14,49 @@ const Register = () => {
     formState: { errors },
   } = useForm();
 
+  const axiosSecure = useAxiosSecure();
+
   //  redirection
   const location = useLocation();
   const navigate = useNavigate();
 
   const { registerUser, updateUserProfile } = useAuth();
 
-  const handleRegistration = (data) => {
-    console.log(data.photo[0]);
-    const profileImg = data.photo[0];
+  const handleRegistration = async (data) => {
+    try {
+      const userCredential = await registerUser(
+        data.email.trim(),
+        data.password,
+      );
 
-    registerUser(data.email, data.password)
-      .then((result) => {
-        console.log(result.user);
-        // render photo url for imgBB
-        const formData = new FormData();
-        formData.append("image", profileImg);
+      // upload photo
+      const formData = new FormData();
+      formData.append("image", data.photo[0]);
+      const res = await axios.post(
+        `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_img_host_key}`,
+        formData,
+      );
+      const photoURL = res.data.data.url;
 
-        const img_API_URL = `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_img_host_key}`;
+      // update profile
+      await updateUserProfile({ displayName: data.name, photoURL });
 
-        axios.post(img_API_URL, formData).then((res) => {
-          console.log(res.data.data.url);
-
-          // update user profile
-          const userProfile = {
-            displayName: data.name,
-            photURL: res.data.data.url,
-          };
-          updateUserProfile(userProfile)
-            .then(() => {
-              console.log("User Profile Updated Successfully");
-              // redirection
-              navigate(location.state || "/");
-            })
-            .catch((error) => {
-              console.log(error);
-            });
-        });
-      })
-      .catch((error) => {
-        console.log(error);
+      // add to DB
+      await axiosSecure.post("/users", {
+        email: data.email.trim(),
+        displayName: data.name,
+        photoURL,
       });
+
+      Swal.fire("Success!", "Registration complete", "success");
+      navigate(location.state || "/");
+    } catch (error) {
+      if (error.code === "auth/email-already-in-use") {
+        Swal.fire("Error!", "Email already in use", "error");
+      } else {
+        console.log(error);
+      }
+    }
   };
 
   return (

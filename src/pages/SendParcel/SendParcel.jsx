@@ -21,7 +21,7 @@ const SendParcel = () => {
   const regionsDuplicate = serviceCenters.map((c) => c.region);
   // set use kora hoi same jinish duplicate na korar jonno
   const regions = [...new Set(regionsDuplicate)];
-  console.log(regions);
+
 
   // region er modde district khoja
   const districtsByRegion = (region) => {
